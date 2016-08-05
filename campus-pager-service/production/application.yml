@@ -1,0 +1,30 @@
+server:
+  port: HTTP_SERVER_PORT
+  context-path: SERVICE_CONTEXT
+
+infobip.remoting:
+
+  server:
+    autostart: RMI_AUTO_START
+    properties:
+      http:
+        rmi.remoting.endpoint: HTTP_RMI_REMOTING_ENDPOINT
+        server:
+          tls:
+            enabled: HTTP_SERVER_TLS_ENABLED
+            keystore.type: TLS_KEY_STORE_TYPE
+            port: HTTP_SERVER_TLS_PORT
+            keystore.path: SERVICE_CONFIGURATION_ROOT/localhost.keystore.p12
+            keystore.password: TLS_KEY_STORE_PASSWORD
+
+      mml:
+        server:
+          port: MML_SERVER_PORT
+          shell.port: MML_SERVER_SHELL_PORT
+          tls:
+            enabled: MML_SERVER_TLS_ENABLED
+            keystore.type: TLS_KEY_STORE_TYPE
+            port: MML_SERVER_TLS_PORT
+            shell.tls.port: 0 #only one shell per process allowed
+            keystore.path: SERVICE_CONFIGURATION_ROOT/localhost.keystore.p12
+            keystore.password: TLS_KEY_STORE_PASSWORD

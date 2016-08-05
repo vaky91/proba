@@ -1,0 +1,30 @@
+server:
+  port: 9090
+
+spring.profiles.active: development
+
+infobip.remoting:
+  server:
+    autostart: false
+    properties:
+      http:
+        rmi.plainjson.invoker.instead.legacy: true
+        rmi.remoting.endpoint: http://localhost:${server.port}/rmi
+        server:
+          tls:
+            enabled: true
+            keystore.type: PKCS12
+            port: 9443
+            keystore.path: classpath:localhost.keystore.p12
+            keystore.password: secretpassword
+      mml:
+        server:
+          port: 3490
+          shell.port: 3491
+          tls:
+            enabled: true
+            keystore.type: PKCS12
+            port: 3590
+            shell.tls.port: 0 #only one shell per process allowed
+            keystore.path: classpath:localhost.keystore.p12
+            keystore.password: secretpassword

@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>campus-pager</artifactId>
+        <groupId>org.infobip.campus</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>campus-pager-service</artifactId>
+
+    <properties>
+        <spotify.docker.plugin.version>0.4.9</spotify.docker.plugin.version>
+        <docker.build.host>http://ci-al-dock-2.infobip.local:4243</docker.build.host>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- SPRING BOOT -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- SPRING BOOT INFOBIP -->
+        <dependency>
+            <groupId>org.infobip.common.remoting</groupId>
+            <artifactId>infobip-remoting-spring-boot-starter</artifactId>
+            <version>${infobip-remoting.version}</version>
+        </dependency>
+
+        <!-- CONNECTOR -->
+        <dependency>
+            <groupId>org.infobip.campus</groupId>
+            <artifactId>campus-pager-connector</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- put all your other dependencies here -->
+
+        <!-- TESTING -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.10.19</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.2.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>4.2.3.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2</version>
+                <executions>
+                    <execution>
+                        <id>make-production-conf-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>${project.artifactId}-${project.version}</finalName>
+                            <appendAssemblyId>true</appendAssemblyId>
+                            <descriptors>
+                                <descriptor>assembly-production-conf.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>make-production-zip-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptors>
+                                <descriptor>assembly-production-zip.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.8</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.17</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/it/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.19.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+
+        <!-- Enable this profile to build service docker image in 'package' phase. -->
+        <profile>
+            <id>dockerBuild</id>
+            <activation><activeByDefault>false</activeByDefault></activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.spotify</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>${spotify.docker.plugin.version}</version>
+                        <configuration>
+                            <serverId>artifactory-docker</serverId>
+                            <registryUrl>https://docker.ib-ci.com/v2/</registryUrl>
+                            <dockerHost>${docker.build.host}</dockerHost>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>app-image-build</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                                <configuration>
+                                    <imageName>docker.ib-ci.com/${project.artifactId}:${project.version}</imageName>
+                                    <baseImage>docker.ib-ci.com/infobip-jdk-8:latest</baseImage>
+                                    <resources>
+                                        <!-- Add application jar -->
+                                        <resource>
+                                            <targetPath>/opt/app/bin</targetPath>
+                                            <directory>${project.build.directory}</directory>
+                                            <include>${project.build.finalName}.jar</include>
+                                        </resource>
+                                        <!-- Add configuration zip -->
+                                        <resource>
+                                            <targetPath>/opt/</targetPath>
+                                            <directory>${project.build.directory}</directory>
+                                            <include>${project.artifactId}-${project.version}-conf.zip</include>
+                                        </resource>
+                                <!--
+                                    Uncomment this to use custom /opt/app/start.sh script located in project docker/app folder.
+                                        <resource>
+                                            <targetPath>/opt/app/</targetPath>
+                                            <directory>${project.basedir}/docker/app</directory>
+                                            <includes>
+                                                <include>*</include>
+                                            </includes>
+                                        </resource>
+                                -->
+                                    </resources>
+                                    <!-- Unpack configuration zip inside container. -->
+                                    <runs>
+                                        <run>sh /opt/scripts/unpack.sh</run>
+                                    </runs>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Enable this profile to push built docker image to artifactory in 'verify' phase.
+             Local image is removed after being pushed to remote repo. -->
+        <profile>
+            <id>dockerPush</id>
+            <activation><activeByDefault>false</activeByDefault></activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.spotify</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>${spotify.docker.plugin.version}</version>
+                        <configuration>
+                            <serverId>artifactory-docker</serverId>
+                            <registryUrl>https://docker.ib-ci.com/v2/</registryUrl>
+                            <dockerHost>${docker.build.host}</dockerHost>
+                        </configuration>
+                        <executions>
+                            <!-- Publish image in 'verify' phase after unit and it tests are green. -->
+                            <execution>
+                                <id>app-image-push</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>push</goal>
+                                </goals>
+                                <configuration>
+                                    <imageName>docker.ib-ci.com/${project.artifactId}:${project.version}</imageName>
+                                </configuration>
+                            </execution>
+                            <!-- Remove image after publish to avoid piling up of built docker images. -->
+                            <execution>
+                                <id>app-image-remove</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>removeImage</goal>
+                                </goals>
+                                <configuration>
+                                    <imageName>docker.ib-ci.com/${project.artifactId}</imageName>
+                                    <imageTags>
+                                        <imageTag>${project.version}</imageTag>
+                                    </imageTags>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
