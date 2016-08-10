@@ -1,5 +1,8 @@
 package org.infobip.campus.dependencies;
 
+import org.infobip.campus.model.NotificationRequest;
+import org.springframework.stereotype.Component;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;

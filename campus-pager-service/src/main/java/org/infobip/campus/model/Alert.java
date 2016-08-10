@@ -10,36 +10,29 @@ public class Alert {
     private String startsAt;
     private String endsAt;
 
-    public Object getLabels() {
-        return labels;
+    private Alert() {}
+
+    public Alert(Object annotations, String startsAt, String endsAt, Object labels) {
+        this.annotations = annotations;
+        this.startsAt = startsAt;
+        this.endsAt = endsAt;
+        this.labels = labels;
     }
 
-    public void setLabels(Object labels) {
-        this.labels = labels;
+    public Object getLabels() {
+        return labels;
     }
 
     public String getStartsAt() {
         return startsAt;
     }
 
-    public void setStartsAt(String startsAt) {
-        this.startsAt = startsAt;
-    }
-
     public Object getAnnotations() {
         return annotations;
     }
 
-    public void setAnnotations(Object annotations) {
-        this.annotations = annotations;
-    }
-
     public String getEndsAt() {
         return endsAt;
-    }
-
-    public void setEndsAt(String endsAt) {
-        this.endsAt = endsAt;
     }
 
     @Override
