@@ -5,3 +5,6 @@ infobip.remoting:
       self:
         rmi.type: http_json_plain
         httpinvoker.proxy.url: http://localhost:${server.port}/rmi
+  server:
+    autostart: true
+
