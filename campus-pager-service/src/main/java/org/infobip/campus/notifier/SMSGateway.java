@@ -4,6 +4,7 @@ package org.infobip.campus.notifier;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.entity.ContentType;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -12,6 +13,7 @@ import java.util.Collection;
  * Gateway implementation for SMS notification.
  * Created by hbusic on 11.8.2016.
  */
+@Component
 public class SMSGateway implements Gateway {
 
     private String apiKey;
