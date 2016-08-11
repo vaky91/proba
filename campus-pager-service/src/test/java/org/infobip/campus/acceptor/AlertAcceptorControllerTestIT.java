@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.*;
  * @since 11.08.2016. 12:08
  */
 @WebIntegrationTest("spring.profiles.active=test")
-@SpringApplicationConfiguration(value = {Application.class, AlertAcceptorControllerTestIT.TestConfiguration.class})
+@SpringApplicationConfiguration(value = {Application.class})
 public class AlertAcceptorControllerTestIT {
 
     @ClassRule
@@ -29,20 +29,5 @@ public class AlertAcceptorControllerTestIT {
 
     @Rule
     public final SpringMethodRule springMethodRule = new SpringMethodRule();
-
-    // REMOVE THIS - SHOULD BE RESOLVED WITH WIREMOCK!!
-    public static class TestConfiguration {
-
-        @Bean
-        public Gateway gateway() {
-            return mock(Gateway.class);
-        }
-
-    }
-
-    @Test
-    public void acceptAlert() throws Exception {
-        // WRITE INTEGRATION TEST HERE
-    }
 
 }
