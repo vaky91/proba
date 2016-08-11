@@ -15,16 +15,13 @@ import java.util.Collections;
 @RestController
 public class AlertAcceptorController {
 
-//    @Autowired
-//    private NotificationSender notificationSender;
     @Autowired
-    private Gateway pushGateway;
+    private NotificationSender notificationSender;
 
-    @RequestMapping(value="/test/{groupId}", method= RequestMethod.POST, consumes="application/json", produces="application/json")
+    @RequestMapping(value="/alert/{groupId}", method= RequestMethod.POST, consumes="application/json", produces="application/json")
     public ResponseEntity<String> test(@PathVariable String groupId, @RequestBody AlertRequest request) {
 
-//        notificationSender.notify(new NotificationRequest(groupId));
-        pushGateway.push(Collections.singletonList(new GatewayRequest(new Member("13373420"), "Probni push")));
+        notificationSender.notify(new NotificationRequest(groupId));
         return new ResponseEntity<String>("OK", HttpStatus.OK);
     }
 

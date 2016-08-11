@@ -22,9 +22,6 @@ public class PushGateway implements Gateway {
 
     private static final Logger LOG = LoggerFactory.getLogger(PushGateway.class);
 
-    //private static final String uri = "https://oneapi.infobip.com/push/1/single";
-    // private String uri = "http://localhost:8080/push";
-    //private String from  = "6dad0991ff524d69f84cd1ae07683895-cf5fc25c-9334-4e9a-bcf6-df8301bb1b6d";
     private String uri;
     private String from;
     HttpHeaders headers = new HttpHeaders();
@@ -45,7 +42,7 @@ public class PushGateway implements Gateway {
             HttpEntity<PushRequest> entity = new HttpEntity<>(new PushRequest(from, gatewayRequest.getReceiver().getNumber(),
                     gatewayRequest.getText()), headers);
             String response = restTemplate.postForObject(uri, entity, String.class);
-            LOG.info(response);
+            LOG.trace(response);
         }
     }
 }

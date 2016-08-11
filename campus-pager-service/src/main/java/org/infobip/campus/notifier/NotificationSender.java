@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 /**
  * Created by hbusic on 10.8.2016.
  */
-@Component
+
 public class NotificationSender {
 
     private Repository repository;

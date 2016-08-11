@@ -3,11 +3,7 @@ package org.infobip.campus.notifier;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.Result;
-
 import java.util.Collections;
-
-import static org.junit.Assert.*;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 /**
