@@ -1,4 +1,4 @@
-package org.infobip.campus.api;
+package org.infobip.campus.notifier;
 
 import org.infobip.campus.notifier.*;
 import org.junit.Test;
