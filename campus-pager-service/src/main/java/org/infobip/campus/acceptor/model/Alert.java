@@ -47,7 +47,8 @@ public class Alert {
     @Override
     public String toString() {
         return "Alert{" +
-                "labels=" + labels +
+                "status='" + status + '\'' +
+                ", labels=" + labels +
                 ", annotations=" + annotations +
                 ", startsAt='" + startsAt + '\'' +
                 ", endsAt='" + endsAt + '\'' +

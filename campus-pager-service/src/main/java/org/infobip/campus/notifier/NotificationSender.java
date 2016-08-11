@@ -3,6 +3,7 @@ package org.infobip.campus.notifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,7 +40,11 @@ public class NotificationSender {
                 members.stream().map(m -> new GatewayRequest(m, "Test")).collect(Collectors.toList());
 
         for (Gateway gateway : gateways) {
-            gateway.push(requests);
+            try {
+                gateway.push(requests);
+            } catch (IOException e) {
+                throw new IllegalStateException("Exception occurred during gateway push.");
+            }
         }
     }
 }
