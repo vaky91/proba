@@ -35,4 +35,13 @@ public class AlertRequest {
         return alerts;
     }
 
+    @Override
+    public String toString() {
+        return "AlertRequest{" +
+                "groupKey='" + groupKey + '\'' +
+                ", version='" + version + '\'' +
+                ", status='" + status + '\'' +
+                ", alerts=" + alerts +
+                '}';
+    }
 }
