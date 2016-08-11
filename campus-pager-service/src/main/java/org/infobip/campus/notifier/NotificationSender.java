@@ -1,5 +1,8 @@
 package org.infobip.campus.notifier;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -7,11 +10,13 @@ import java.util.stream.Collectors;
 /**
  * Created by hbusic on 10.8.2016.
  */
+@Component
 public class NotificationSender {
 
     private Repository repository;
     private List<Gateway> gateways;
 
+    @Autowired
     public NotificationSender(Repository repository, List<Gateway> gateways) {
         this.repository = repository;
         this.gateways = gateways;

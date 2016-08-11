@@ -1,10 +1,8 @@
 package org.infobip.campus.acceptor;
 
 import org.infobip.campus.acceptor.model.AlertRequest;
-import org.infobip.campus.dependencies.NotificationSender;
-import org.infobip.campus.model.NotificationRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.infobip.campus.notifier.NotificationRequest;
+import org.infobip.campus.notifier.NotificationSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

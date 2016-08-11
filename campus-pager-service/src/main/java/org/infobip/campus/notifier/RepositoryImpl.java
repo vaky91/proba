@@ -1,5 +1,7 @@
 package org.infobip.campus.notifier;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import java.util.List;
  * Implementation of Repository interface.
  * Created by hbusic on 11.8.2016.
  */
+@Component
 public class RepositoryImpl implements Repository {
 
     private List<Group> groups;
