@@ -1,10 +1,11 @@
-package org.infobip.campus.dependencies;
+package org.infobip.campus.notifier;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
+ * Group.
  * Created by hbusic on 10.8.2016.
  */
 public class Group {
@@ -12,12 +13,9 @@ public class Group {
     private String groupID;
     private List<Member> members;
 
-    public Group(String groupID) {
-        if(groupID == null) {
-            throw new IllegalArgumentException();
-        }
+    public Group(String groupID, List<Member> members) {
         this.groupID = groupID;
-        members = new ArrayList<>();
+        this.members = members == null ? new ArrayList<>() : members;
     }
 
     public String getGroupID() {
@@ -25,9 +23,6 @@ public class Group {
     }
 
     public void addMember(Member member) {
-        if(member == null) {
-            throw new IllegalArgumentException();
-        }
         if(!members.contains(member)) {
             members.add(member);
         }
