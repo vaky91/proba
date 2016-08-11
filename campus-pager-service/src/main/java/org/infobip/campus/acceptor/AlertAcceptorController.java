@@ -1,10 +1,13 @@
-package org.infobip.campus.controllers;
+package org.infobip.campus.acceptor;
 
+import org.infobip.campus.acceptor.model.AlertRequest;
 import org.infobip.campus.dependencies.NotificationSender;
 import org.infobip.campus.model.NotificationRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -13,16 +16,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class AlertAcceptorController {
 
-    private static Logger LOG = LoggerFactory.getLogger(AlertAcceptorController.class);
-
-//    @Autowired
-//    private NotificationSender notificationSender;
+    @Autowired
+    private NotificationSender notificationSender;
 
     @RequestMapping(value="/test/{groupId}", method= RequestMethod.POST, consumes="application/json", produces="application/json")
-    public String test(@PathVariable String groupId, @RequestBody NotificationRequest request) {
-        request.setGroupID(groupId);
-        LOG.info(request.toString());
-        //notificationSender.notify(request);
-        return request.toString();
+    public ResponseEntity<String> test(@PathVariable String groupId, @RequestBody AlertRequest request) {
+
+        notificationSender.notify(new NotificationRequest(groupId));
+        return new ResponseEntity<String>("OK", HttpStatus.OK);
     }
+
 }

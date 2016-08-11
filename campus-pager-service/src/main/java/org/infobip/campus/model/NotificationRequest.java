@@ -1,5 +1,7 @@
 package org.infobip.campus.model;
 
+import org.infobip.campus.acceptor.model.Alert;
+
 import java.util.List;
 
 /**
@@ -7,48 +9,14 @@ import java.util.List;
  */
 public class NotificationRequest {
 
-    private  String version;
-    private  String status;
-    private  List<Alert> alerts;
-    private  String groupID;
+    private final String groupId;
 
-
-    private NotificationRequest() {}
-
-    public NotificationRequest(String status, List<Alert> alerts, String version, String groupID) {
-        this.status = status;
-        this.alerts = alerts;
-        this.version = version;
-        this.groupID = groupID;
+    public NotificationRequest(String groupId) {
+        this.groupId = groupId;
     }
 
-    public String getVersion() {
-        return version;
+    public String getGroupId() {
+        return groupId;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public List<Alert> getAlerts() {
-        return alerts;
-    }
-
-    public String getGroupID() {
-        return groupID;
-    }
-
-    public void setGroupID(String groupID) {
-        this.groupID = groupID;
-    }
-
-    @Override
-    public String toString() {
-        return "NotificationRequest{" +
-                "version='" + version + '\'' +
-                ", status='" + status + '\'' +
-                ", alerts=" + alerts +
-                ", groupID='" + groupID + '\'' +
-                '}';
-    }
 }
