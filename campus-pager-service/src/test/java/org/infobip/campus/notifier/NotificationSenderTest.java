@@ -1,18 +1,19 @@
-package org.infobip.campus.api;
+package org.infobip.campus.notifier;
 
-import org.infobip.campus.notifier.*;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
+import java.util.Collections;
 
+import static org.mockito.Matchers.anyCollection;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 /**
- * Created by hbusic on 10.8.2016.
+ * Created by hbusic on 11.8.2016.
  */
-@RunWith(MockitoJUnitRunner.class)
 public class NotificationSenderTest {
 
     @Test
@@ -27,7 +28,7 @@ public class NotificationSenderTest {
         String ID = "nesto";
         when(request.getGroupId()).thenReturn(ID);
         when(repository.getGroupById(ID)).thenReturn(group);
-        when(group.getMembers()).thenReturn(null);
+        when(group.getMembers()).thenReturn(Collections.emptyList());
 
         NotificationSender sender = new NotificationSender(repository, Arrays.asList(SMSGate,PushGate));
         sender.notify(request);
@@ -52,7 +53,7 @@ public class NotificationSenderTest {
 
         when(request.getGroupId()).thenReturn(groupId);
         when(repository.getGroupById(groupId)).thenReturn(group);
-        when(group.getMembers()).thenReturn(null);
+        when(group.getMembers()).thenReturn(Collections.emptyList());
 
         NotificationSender sender = new NotificationSender(repository, Arrays.asList(SMSGate,PushGate));
         sender.notify(request);
