@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.mockito.Mockito.*;
 
@@ -27,7 +28,7 @@ public class NotificationSenderTest {
         String ID = "nesto";
         when(request.getGroupId()).thenReturn(ID);
         when(repository.getGroupById(ID)).thenReturn(group);
-        when(group.getMembers()).thenReturn(null);
+        when(group.getMembers()).thenReturn(Collections.emptyList());
 
         NotificationSender sender = new NotificationSender(repository, Arrays.asList(SMSGate,PushGate));
         sender.notify(request);
@@ -52,7 +53,7 @@ public class NotificationSenderTest {
 
         when(request.getGroupId()).thenReturn(groupId);
         when(repository.getGroupById(groupId)).thenReturn(group);
-        when(group.getMembers()).thenReturn(null);
+        when(group.getMembers()).thenReturn(Collections.emptyList());
 
         NotificationSender sender = new NotificationSender(repository, Arrays.asList(SMSGate,PushGate));
         sender.notify(request);
