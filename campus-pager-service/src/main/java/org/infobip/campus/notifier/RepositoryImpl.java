@@ -11,8 +11,8 @@ public class RepositoryImpl implements Repository {
 
     private List<Group> groups;
 
-    public RepositoryImpl(List<Group> groups) {
-        this.groups = groups == null ? new ArrayList<>() : groups;
+    public RepositoryImpl() {
+        groups = new ArrayList<>();
     }
 
     @Override
