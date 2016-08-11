@@ -1,4 +1,4 @@
-package org.infobip.campus.dependencies;
+package org.infobip.campus.notifier;
 
 /**
  * Created by hbusic on 10.8.2016.

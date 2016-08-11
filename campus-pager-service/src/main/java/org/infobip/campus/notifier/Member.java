@@ -1,4 +1,4 @@
-package org.infobip.campus.dependencies;
+package org.infobip.campus.notifier;
 
 /**
  * Created by hbusic on 10.8.2016.
@@ -8,21 +8,11 @@ public class Member {
     private String number;
 
     public Member(String number) {
-        if(number == null) {
-            throw new IllegalArgumentException();
-        }
         this.number = number;
     }
 
     public String getNumber() {
         return number;
-    }
-
-    public void setNumber(String number) {
-        if(number == null) {
-            throw new IllegalArgumentException();
-        }
-        this.number = number;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package org.infobip.campus.api;
 
-import org.infobip.campus.dependencies.*;
+import org.infobip.campus.notifier.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -25,14 +25,14 @@ public class NotificationSenderTest {
         Gateway PushGate = mock(Gateway.class);
 
         String ID = "nesto";
-        when(request.getGroupID()).thenReturn(ID);
+        when(request.getGroupId()).thenReturn(ID);
         when(repository.getGroupById(ID)).thenReturn(group);
         when(group.getMembers()).thenReturn(null);
 
         NotificationSender sender = new NotificationSender(repository, Arrays.asList(SMSGate,PushGate));
         sender.notify(request);
 
-        verify(request,times(1)).getGroupID();
+        verify(request,times(1)).getGroupId();
         verify(repository,times(1)).getGroupById(anyString());
         verify(group,times(1)).getMembers();
         verify(SMSGate,times(1)).push(anyCollection());
@@ -50,18 +50,15 @@ public class NotificationSenderTest {
 
         String groupId = "infrastructure";
 
-        when(request.getGroupID()).thenReturn(groupId);
+        when(request.getGroupId()).thenReturn(groupId);
         when(repository.getGroupById(groupId)).thenReturn(group);
         when(group.getMembers()).thenReturn(null);
 
         NotificationSender sender = new NotificationSender(repository, Arrays.asList(SMSGate,PushGate));
         sender.notify(request);
 
-        verify(request,times(1)).getGroupID();
+        verify(request,times(1)).getGroupId();
         verify(repository,times(1)).getGroupById(groupId);
         verify(group,times(1)).getMembers();
-
-
-
     }
 }
