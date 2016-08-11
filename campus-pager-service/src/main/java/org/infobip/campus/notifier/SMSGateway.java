@@ -14,6 +14,14 @@ import java.util.Collection;
  */
 public class SMSGateway implements Gateway {
 
+    private String apiKey;
+    private String url;
+
+    public SMSGateway(String apiKey, String url) {
+        this.apiKey = apiKey;
+        this.url = url;
+    }
+
     @Override
     public void push(Collection<GatewayRequest> requests) throws IOException {
 
@@ -27,8 +35,8 @@ public class SMSGateway implements Gateway {
             ObjectMapper mapper = new ObjectMapper();
             String jsonInString  = mapper.writeValueAsString(smsPackage);
 
-            String phrase = Request.Post("https://api.infobip.com/sms/1/text/single")
-                    .addHeader("Authorization","App b7b1fc06983b3dff0aabece3973951f3-23e80b14-f291-4d6d-8af7-5146850d7602")
+            String phrase = Request.Post(url)
+                    .addHeader("Authorization","App " + apiKey)
                     .addHeader("Accept", "application/json")
                     .bodyString(jsonInString, ContentType.APPLICATION_JSON)
                     .execute().returnResponse().getStatusLine().getReasonPhrase();
