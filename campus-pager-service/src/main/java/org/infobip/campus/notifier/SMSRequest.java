@@ -3,13 +3,13 @@ package org.infobip.campus.notifier;
 /**
  * Created by hbusic on 11.8.2016.
  */
-public class SMSPackage {
+public class SMSRequest {
 
     private String from;
     private String to;
     private String text;
 
-    public SMSPackage(String from, String to, String text) {
+    public SMSRequest(String from, String to, String text) {
         this.from = from;
         this.to = to;
         this.text = text;

@@ -27,7 +27,7 @@ public class SMSGateway implements Gateway {
 
         for (GatewayRequest r : requests) {
 
-            SMSPackage smsPackage = new SMSPackage(
+            SMSRequest smsPackage = new SMSRequest(
                     "InfoSMS",
                     r.getReceiver().getNumber(),
                     r.getText());

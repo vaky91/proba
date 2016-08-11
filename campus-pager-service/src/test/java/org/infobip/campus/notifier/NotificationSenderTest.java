@@ -1,19 +1,19 @@
-package org.infobip.campus.api;
+package org.infobip.campus.notifier;
 
-import org.infobip.campus.notifier.*;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.Collections;
 
+import static org.mockito.Matchers.anyCollection;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 /**
- * Created by hbusic on 10.8.2016.
+ * Created by hbusic on 11.8.2016.
  */
-@RunWith(MockitoJUnitRunner.class)
 public class NotificationSenderTest {
 
     @Test
