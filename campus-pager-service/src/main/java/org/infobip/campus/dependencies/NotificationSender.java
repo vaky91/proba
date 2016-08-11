@@ -15,6 +15,17 @@ public class NotificationSender {
     private Repository repository;
     private List<Gateway> gateways;
 
+    public NotificationSender(Repository repository, List<Gateway> gateways) {
+        if(repository == null) {
+            throw new IllegalArgumentException();
+        }
+        if(gateways == null) {
+            throw new IllegalArgumentException();
+        }
+        this.repository = repository;
+        this.gateways = gateways;
+    }
+
     public void setRepository(Repository repository) {
         if(repository == null) {
             throw new IllegalArgumentException();
