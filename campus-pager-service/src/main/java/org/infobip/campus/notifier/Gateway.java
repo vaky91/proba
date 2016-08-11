@@ -1,5 +1,6 @@
 package org.infobip.campus.notifier;
 
+import java.io.IOException;
 import java.util.Collection;
 
 /**
@@ -8,5 +9,5 @@ import java.util.Collection;
  */
 public interface Gateway {
 
-    void push(Collection<GatewayRequest> requests);
+    void push(Collection<GatewayRequest> requests) throws IOException;
 }

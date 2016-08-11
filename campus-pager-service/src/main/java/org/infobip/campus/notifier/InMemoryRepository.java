@@ -2,7 +2,11 @@ package org.infobip.campus.notifier;
 
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -10,12 +14,13 @@ import java.util.List;
  * Created by hbusic on 11.8.2016.
  */
 @Component
-public class RepositoryImpl implements Repository {
+public class InMemoryRepository implements Repository {
 
-    private List<Group> groups;
+    private List<Group> groups = new LinkedList<>();
 
-    public RepositoryImpl(List<Group> groups) {
-        this.groups = groups == null ? new ArrayList<>() : groups;
+    @PostConstruct
+    private void init() {
+        addGroup(new Group("campusteam", Arrays.asList(new Member("385994931414"))));
     }
 
     @Override
