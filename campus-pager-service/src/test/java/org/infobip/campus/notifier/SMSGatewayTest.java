@@ -27,13 +27,13 @@ public class SMSGatewayTest {
                         .withBody("{ \"response\" : \"OK\" }")));
 
         Gateway gateway = new SMSGateway("abcd", "http://localhost:15000/sms");
-        gateway.push(Collections.singletonList(new GatewayRequest(new Member("13373420"), "Test SMS.")));
+        gateway.push(Collections.singletonList(new GatewayRequest(new Member(<"number">), "Test SMS.")));
 
         //assertTrue(result.wasSuccessFul());
 
         verify(postRequestedFor(urlMatching("/sms"))
                 .withRequestBody(equalTo("{\"from\":\"InfoSMS\"," +
-                        "\"to\":\"13373420\"," +
+                        "\"to\":<\"number\">," +
                         "\"text\":\"Test SMS.\"}"))
                 .withHeader("Authorization", equalTo("App abcd"))
                 .withHeader("Accept", equalTo("application/json")));
